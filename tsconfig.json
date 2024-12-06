@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
+    "esModuleInterop": true,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
@@ -22,7 +23,7 @@
         "transform": "@nestia/core/lib/transform",
         /**
          * Validate request body.
-         * 
+         *
          *   - "assert": Use typia.assert() function
          *   - "is": Use typia.is() function
          *   - "validate": Use typia.validate() function
@@ -30,10 +31,10 @@
          *   - "equals": Use typia.equals() function
          *   - "validateEquals": Use typia.validateEquals() function
          */
-        "validate": "assert",
+        "validate": "validate",
         /**
          * Validate JSON typed response body.
-         * 
+         *
          *   - "assert": Use typia.assertStringify() function
          *   - "is": Use typia.isStringify() function
          *   - "validate": Use typia.validateStringify() function
@@ -41,7 +42,7 @@
          *   - "stringify": Use typia.stringify() function, but dangerous
          *   - null: Just use JSON.stringify() function, without boosting
          */
-        "stringify": "assert"
+        "stringify": "validate"
       },
       {
         "transform": "@nestia/sdk/lib/transform"
