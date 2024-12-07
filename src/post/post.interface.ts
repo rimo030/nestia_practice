@@ -8,24 +8,18 @@ export interface Post {
 }
 
 export namespace Post {
-  export interface ICreateOutput {
+  export interface IGetOutput {
     isSuccess: boolean;
-    data: Array<Pick<Post, 'id' | 'title' | 'author'>> &
-      tags.MinItems<1> &
-      tags.MaxItems<1>;
+    data: Post;
   }
 
-  export interface ICreateInput {
-    /**
-     * @title title
-     * @description This is title
-     */
-    title: string & tags.MinLength<10> & tags.MaxLength<100>;
-
-    /**
-     * @title description
-     * @description This is description
-     */
-    description: string & tags.MinLength<10> & tags.MaxLength<1000>;
+  export interface IGetAllOutput {
+    isSuccess: boolean;
+    data: Post[];
   }
+
+  export interface ICreateInput
+    extends Pick<Post, 'author' | 'title' | 'description'> {}
+
+  export interface IUpdateInput extends Partial<ICreateInput> {}
 }
