@@ -35,6 +35,7 @@ describe('PostController', () => {
         simulate: true,
       },
       {
+        author: '1234567890',
         title: '1234567890',
         description: '1234567890',
       },
