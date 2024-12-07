@@ -53,9 +53,111 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Post.ICreateOutput"
+                  "$ref": "#/components/schemas/Post.IGetOutput"
                 }
               }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post.IGetAllOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/{id}": {
+      "get": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post.IGetOutput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post.IUpdateInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post.IGetOutput"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
             }
           }
         }
@@ -64,7 +166,76 @@
   },
   "components": {
     "schemas": {
-      "Post.ICreateOutput": {
+      "Post.IGetOutput": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Post"
+          }
+        },
+        "required": [
+          "isSuccess",
+          "data"
+        ]
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "author": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "id",
+          "author",
+          "title",
+          "description"
+        ]
+      },
+      "Post.ICreateInput": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "author",
+          "title",
+          "description"
+        ]
+      },
+      "Post.IGetAllOutput": {
         "type": "object",
         "properties": {
           "isSuccess": {
@@ -73,45 +244,35 @@
           "data": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "title": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 100
-                },
-                "description": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 1000
-                }
-              },
-              "required": ["id", "title", "description"]
-            },
-            "minItems": 5
+              "$ref": "#/components/schemas/Post"
+            }
           }
         },
-        "required": ["isSuccess", "data"]
+        "required": [
+          "isSuccess",
+          "data"
+        ]
       },
-      "Post.ICreateInput": {
+      "Post.IUpdateInput": {
         "type": "object",
         "properties": {
+          "author": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20
+          },
           "title": {
             "type": "string",
-            "minLength": 10,
+            "minLength": 1,
             "maxLength": 100
           },
           "description": {
             "type": "string",
-            "minLength": 10,
+            "minLength": 1,
             "maxLength": 1000
           }
         },
-        "required": ["title", "description"]
+        "required": []
       }
     }
   },
